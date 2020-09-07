@@ -10,6 +10,8 @@ import pl.training.shop.payments.PaymentService;
 import pl.training.shop.products.Product;
 import pl.training.shop.products.ProductService;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public class ShopService {
 
@@ -38,6 +40,10 @@ public class ShopService {
         order.setPayment(payment);
         orderService.update(order);
         return payment;
+    }
+
+    public List<Product> getProductsByName(String name) {
+        return productService.getByName(name);
     }
 
 }

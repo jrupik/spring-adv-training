@@ -5,7 +5,9 @@ import pl.training.shop.common.PagedResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class HashMapProductRepository implements ProductRepository {
 
@@ -25,6 +27,13 @@ public class HashMapProductRepository implements ProductRepository {
         var totalPages = (int) Math.ceil((double) products.size() / pageSize);
         var data = new ArrayList<>(products.values());
         return new PagedResult<>(data, pageNumber, totalPages);
+    }
+
+    @Override
+    public List<Product> findByNameContaining(String name) {
+        return products.values()
+                .stream().filter(product -> product.getName().contains(name))
+                .collect(Collectors.toList());
     }
 
 }

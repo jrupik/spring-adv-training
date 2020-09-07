@@ -4,8 +4,6 @@ import lombok.extern.java.Log;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import pl.training.shop.orders.Order;
 import pl.training.shop.payments.LocalMoney;
-import pl.training.shop.payments.PaymentRequest;
-import pl.training.shop.payments.PaymentService;
 import pl.training.shop.products.Product;
 import pl.training.shop.products.ProductType;
 
@@ -39,6 +37,9 @@ public class Application {
             shopService.placeOrder(order);
             var payment = shopService.payForOrder(order.getId());
             log.info(payment.toString());
+
+            shopService.getProductsByName("masterclass");
+            shopService.getProductsByName("masterclass");
         }
     }
 
