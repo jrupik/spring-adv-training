@@ -20,6 +20,12 @@
         <constructor-arg name="paymentRepository" ref="hashMapPaymentRepository"/>
     </bean>
 
-    <bean class="pl.training.shop.payments.PaymentConsoleLogger"/>
+    <bean id="paymentConsoleLogger" class="pl.training.shop.payments.PaymentConsoleLogger"/>
+
+    <aop:config>
+        <aop:aspect ref="paymentConsoleLogger">
+            <aop:after-returning pointcut="@annotation(pl.training.shop.payments.LogPayments)" method="log" returning="payment"/>
+        </aop:aspect>
+    </aop:config>
 
 </beans>
