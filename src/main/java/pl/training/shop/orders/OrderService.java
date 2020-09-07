@@ -1,13 +1,16 @@
 package pl.training.shop.orders;
 
 import lombok.RequiredArgsConstructor;
+import pl.training.shop.common.retry.Retry;
+import pl.training.shop.common.validator.Validate;
 
 @RequiredArgsConstructor
 public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    public Order add(Order order) {
+    @Retry
+    public Order add(@Validate(exception = InvalidOrderException.class) Order order) {
         return orderRepository.save(order);
     }
 

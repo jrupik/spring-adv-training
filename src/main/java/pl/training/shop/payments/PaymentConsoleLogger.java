@@ -18,28 +18,32 @@ public class PaymentConsoleLogger {
 
     private final MessageSource messageSource;
 
-    @Before(value = "@annotation(LogPayments) && args(paymentRequest)", argNames = "paymentRequest")
+    @Pointcut("@annotation(LogPayments)")
+    public void logPayments() {
+    }
+
+    @Before(value = "logPayments() && args(paymentRequest)", argNames = "paymentRequest")
     public void beforePayment(PaymentRequest paymentRequest) {
         log.info("New payment request: " + paymentRequest);
     }
 
-    @After("@annotation(LogPayments)")
+    @After("logPayments()")
     public void afterPayment() {
         log.info("After payment");
     }
 
-    @AfterReturning(value = "@annotation(LogPayments)", returning = "payment")
+    @AfterReturning(value = "logPayments()", returning = "payment")
     public void log(Payment payment) {
         log.info(createLogEntry(payment));
     }
 
     // obie metody oznaczone AfterReturning są wołane w przypadku pasującego wyjątku, w kolejności deklaracji
-    @AfterThrowing(value = "@annotation(LogPayments)", throwing = "exception")
+    @AfterThrowing(value = "logPayments()", throwing = "exception")
     public void log(IllegalArgumentException exception) {
         log.info("Payment exception: " + exception.getClass().getSimpleName());
     }
 
-    @AfterThrowing(value = "@annotation(LogPayments)", throwing = "exception")
+    @AfterThrowing(value = "logPayments()", throwing = "exception")
     public void log(Exception exception) {
         log.info("Payment exception: " + exception.getClass().getSimpleName());
     }

@@ -33,13 +33,13 @@ public class Application {
             shopService.addProduct(BOOK_PRODUCT);
             log.info(shopService.getProducts(0, 100).toString());
 
-            var order = new Order(List.of(VIDEO_PRODUCT, BOOK_PRODUCT));
+            var order = new Order(List.of());
             shopService.placeOrder(order);
             var payment = shopService.payForOrder(order.getId());
             log.info(payment.toString());
 
             shopService.getProductsByName("masterclass");
-            shopService.getProductsByName("masterclass");
+
         }
     }
 
