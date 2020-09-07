@@ -23,7 +23,7 @@ public class FakePaymentService implements PaymentService {
                 .timestamp(Instant.now())
                 .status(PaymentStatus.STARTED)
                 .build();
-        eventPublisher.publishEvent(new PaymentStatusChangedEvent(this, payment));
+        eventPublisher.publishEvent(new PaymentStatusChangedEvent(payment));
         return paymentRepository.save(payment);
     }
 
