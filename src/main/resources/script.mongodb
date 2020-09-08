@@ -29,4 +29,7 @@ db.sales.updateMany({_id:1}, {$push: {tags: 'vip'}})
 //db.sales.find()
 //db.sales.find({price: 10})
 //db.sales.find({price: {$gte: 5}, _id:1})
-db.sales.find({$or: [{price: {$gte: 5}}, {_id:1}]}).limit(2).skip(1)``
+db.sales.find({$or: [{price: {$gte: 5}}, {_id:1}]}).limit(2).skip(1)
+
+const aggregation = [ { $match: {} }, { $project: {item : 1} } ];
+db.sales.aggregate(aggregation);
