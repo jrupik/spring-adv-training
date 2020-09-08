@@ -5,6 +5,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import pl.training.shop.orders.Order;
 import pl.training.shop.payments.LocalMoney;
 import pl.training.shop.products.Product;
+import pl.training.shop.products.ProductRepository;
 import pl.training.shop.products.ProductType;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class Application {
     public static void main(String[] args) {
         try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BASE_PACKAGE)) {
             var shopService = applicationContext.getBean(ShopService.class);
+            var productRepository = applicationContext.getBean(ProductRepository.class);
             shopService.addProduct(VIDEO_PRODUCT);
             shopService.addProduct(BOOK_PRODUCT);
             log.info(shopService.getProducts(0, 100).toString());
@@ -37,6 +39,9 @@ public class Application {
             shopService.placeOrder(order);
             var payment = shopService.payForOrder(order.getId());
             log.info(payment.toString());
+
+            System.out.println(productRepository.findByDescription("Praktyczny kurs Spring framework")
+            .get(0).getDescription());
         }
     }
 
