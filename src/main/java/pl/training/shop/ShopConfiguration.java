@@ -1,7 +1,7 @@
 package pl.training.shop;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.hibernate.SessionFactory;
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -14,8 +14,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -23,6 +23,7 @@ import pl.training.shop.orders.OrderService;
 import pl.training.shop.payments.PaymentService;
 import pl.training.shop.products.ProductService;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -62,24 +63,25 @@ public class ShopConfiguration {
     }
 
     @Bean
-    public PropertiesFactoryBean hibernateProperties() {
+    public PropertiesFactoryBean jpaProperties() {
         var factoryBean = new PropertiesFactoryBean();
-        factoryBean.setLocation(new ClassPathResource("hibernate.properties"));
+        factoryBean.setLocation(new ClassPathResource("jpa.properties"));
         return factoryBean;
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(DataSource dataSource, Properties hibernateProperties) {
-        var factoryBean = new LocalSessionFactoryBean();
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Properties jpaProperties) {
+        var factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource);
-        factoryBean.setHibernateProperties(hibernateProperties);
+        factoryBean.setJpaProperties(jpaProperties);
         factoryBean.setPackagesToScan("pl.training.shop");
+        factoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         return factoryBean;
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
-        return new HibernateTransactionManager(sessionFactory);
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 
     @Bean

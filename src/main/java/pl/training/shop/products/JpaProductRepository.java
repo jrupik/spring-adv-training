@@ -5,6 +5,7 @@ import pl.training.shop.common.PagedResult;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JpaProductRepository implements ProductRepository {
@@ -28,6 +29,11 @@ public class JpaProductRepository implements ProductRepository {
                 .setMaxResults(pageSize)
                 .getResultList();
         return new PagedResult<>(products, pageNumber, -1);
+    }
+
+    @Override
+    public List<Product> findByNameContaining(String name) {
+        return new ArrayList<>();
     }
 
 }
