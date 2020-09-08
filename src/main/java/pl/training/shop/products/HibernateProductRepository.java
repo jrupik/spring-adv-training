@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import pl.training.shop.common.PagedResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,6 +29,11 @@ public class HibernateProductRepository implements ProductRepository {
                 .setMaxResults(pageSize)
                 .getResultList();
         return new PagedResult<>(products, pageNumber, -1);
+    }
+
+    @Override
+    public List<Product> findByNameContaining(String name) {
+        return new ArrayList<>();
     }
 
 }
