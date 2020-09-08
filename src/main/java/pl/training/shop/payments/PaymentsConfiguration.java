@@ -16,11 +16,6 @@ public class PaymentsConfiguration {
     }
 
     @Bean
-    public PaymentRepository paymentRepository() {
-        return new JpaPaymentRepository();
-    }
-
-    @Bean
     public PaymentService paymentService(PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository, ApplicationEventPublisher eventPublisher) {
         return new FakePaymentService(paymentIdGenerator, paymentRepository, eventPublisher);
     }

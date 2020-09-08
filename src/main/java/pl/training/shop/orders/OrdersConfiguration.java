@@ -7,11 +7,6 @@ import org.springframework.context.annotation.Configuration;
 public class OrdersConfiguration {
 
     @Bean
-    public OrderRepository orderRepository() {
-        return new JpaOrderRepository();
-    }
-
-    @Bean
     public OrderService orderService(OrderRepository orderRepository) {
         return new OrderService(orderRepository);                                         
     }

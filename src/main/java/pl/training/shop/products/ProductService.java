@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
 import pl.training.shop.common.PagedResult;
 
 import java.util.List;
@@ -26,7 +27,8 @@ public class ProductService {
     }
 
     public PagedResult<Product> getAll(int pageNumber, int pageSize) {
-        return productRepository.findAll(pageNumber, pageSize);
+        var productPage = productRepository.findAll(PageRequest.of(pageNumber, pageSize));
+        return new PagedResult<>(productPage.getContent(), pageNumber, productPage.getTotalPages());
     }
 
 }

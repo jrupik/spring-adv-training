@@ -1,7 +1,6 @@
 package pl.training.shop.payments;
 
-public interface PaymentRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    Payment save(Payment payment);
-
+public interface PaymentRepository extends JpaRepository<Payment, String> {
 }
