@@ -17,6 +17,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import pl.training.shop.orders.OrderService;
 import pl.training.shop.payments.PaymentService;
 import pl.training.shop.products.ProductService;
@@ -26,6 +27,7 @@ import java.util.Properties;
 
 @PropertySource("classpath:jdbc.properties")
 @EnableCaching
+@EnableTransactionManagement
 @EnableAspectJAutoProxy
 @Configuration
 public class ShopConfiguration {

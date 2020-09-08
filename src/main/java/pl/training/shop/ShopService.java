@@ -1,6 +1,7 @@
 package pl.training.shop;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import pl.training.shop.common.PagedResult;
 import pl.training.shop.orders.Order;
 import pl.training.shop.orders.OrderService;
@@ -12,6 +13,7 @@ import pl.training.shop.products.ProductService;
 
 import java.util.List;
 
+@Transactional
 @RequiredArgsConstructor
 public class ShopService {
 
