@@ -18,6 +18,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.support.TransactionTemplate;
 import pl.training.shop.orders.OrderService;
 import pl.training.shop.payments.PaymentService;
 import pl.training.shop.products.ProductService;
@@ -33,8 +34,8 @@ import java.util.Properties;
 public class ShopConfiguration {
 
     @Bean
-    public ShopService shopService(OrderService orderService, PaymentService paymentService, ProductService productService) {
-        return new ShopService(orderService, paymentService, productService);
+    public ShopService shopService(OrderService orderService, PaymentService paymentService, ProductService productService, TransactionTemplate transactionTemplate) {
+        return new ShopService(orderService, paymentService, productService, transactionTemplate);
     }
 
     @Bean
@@ -79,6 +80,11 @@ public class ShopConfiguration {
     @Bean
     public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
         return new HibernateTransactionManager(sessionFactory);
+    }
+
+    @Bean
+    public TransactionTemplate transactionTemplate(PlatformTransactionManager transactionManager) {
+        return new TransactionTemplate(transactionManager);
     }
 
 }
