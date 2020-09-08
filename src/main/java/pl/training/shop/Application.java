@@ -37,9 +37,6 @@ public class Application {
             shopService.placeOrder(order);
             var payment = shopService.payForOrder(order.getId());
             log.info(payment.toString());
-
-            shopService.getProductsByName("masterclass");
-
         }
     }
 
