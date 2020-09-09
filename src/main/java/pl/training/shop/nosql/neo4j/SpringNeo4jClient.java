@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class SpringNeo4jClient {
 
     @Setter

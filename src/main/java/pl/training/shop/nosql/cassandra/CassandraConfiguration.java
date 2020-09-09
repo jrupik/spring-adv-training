@@ -5,9 +5,9 @@ import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
-@EnableCassandraRepositories(basePackages = "pl.training.shop.nosql.cassandra")
+//@EnableCassandraRepositories(basePackages = "pl.training.shop.nosql.cassandra")
 @Configuration
-public class CassandraConfig extends AbstractCassandraConfiguration {
+public class CassandraConfiguration extends AbstractCassandraConfiguration {
 
     @Override
     protected String getKeyspaceName() {

@@ -6,7 +6,7 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 
 //@EnableNeo4jRepositories(basePackages = "pl.training.mongodb")
 @Configuration
-public class Neo4jConfig {
+public class Neo4jConfiguration {
 
     /*@Bean
     public org.neo4j.ogm.config.Configuration getConfiguration() {

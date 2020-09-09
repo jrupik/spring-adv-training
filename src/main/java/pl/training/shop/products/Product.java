@@ -30,5 +30,7 @@ public class Product {
     private FastMoney price;
     @Enumerated(EnumType.STRING)
     private ProductType type;
+    @Version
+    private Long version;
 
 }

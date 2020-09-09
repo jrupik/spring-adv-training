@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class SpringBootMongoClient {
 
     @Setter

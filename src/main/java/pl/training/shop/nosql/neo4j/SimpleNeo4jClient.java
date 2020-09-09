@@ -2,8 +2,6 @@ package pl.training.shop.nosql.neo4j;
 
 import org.neo4j.driver.*;
 
-import java.util.Map;
-
 public class SimpleNeo4jClient {
 
     public static void main(String[] args) {
