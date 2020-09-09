@@ -20,5 +20,10 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=admin
   mongo:
     image: mongo
-      ports:
-        - "27017:27017"
+    ports:
+     - "27017:27017"
+  cassandra:
+    image: cassandra
+    ports:
+      - "9043:9042"
+
