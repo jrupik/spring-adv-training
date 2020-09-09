@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import pl.training.shop.movies.Movie;
+import pl.training.shop.movies.MovieService;
+import pl.training.shop.movies.SearchCriteria;
+import pl.training.shop.movies.SearchOperation;
 import pl.training.shop.orders.Order;
 import pl.training.shop.payments.LocalMoney;
 import pl.training.shop.products.Product;
@@ -39,6 +43,9 @@ public class Application {
     @Setter
     @Autowired
     private ProductRepository productRepository;
+    @Setter
+    @Autowired
+    private MovieService movieService;
 
     @PostConstruct
     public void init() {
@@ -51,7 +58,19 @@ public class Application {
         var payment = shopService.payForOrder(order.getId());
         log.info(payment.toString());
 
-        System.out.println(productRepository.findByDescription("Praktyczny kurs Spring framework").get(0).getDescription());
+       // System.out.println(productRepository.findByDescription("Praktyczny kurs Spring framework").get(0).getDescription());
+
+        movieService.add(List.of(
+                new Movie("Terminator", "Action", 4.5, 2000),
+                new Movie("Alien", "Action", 4.5, 1999)
+        ));
+
+        var searchCriteria = List.of(
+                new SearchCriteria("genre", "Action", SearchOperation.EQUAL),
+                new SearchCriteria("releaseYear", 2000, SearchOperation.EQUAL)
+        );
+        var results = movieService.findByCriteria(searchCriteria);
+        System.out.println(results);
     }
 
     public static void main(String[] args) {
