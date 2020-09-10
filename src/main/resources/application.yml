@@ -1,7 +1,0 @@
-training:
-  kafka:
-    server: localhost:9092
-    mainTopic: main-topic
-logging:
-  level:
-    org.apache.kafka: WARN
