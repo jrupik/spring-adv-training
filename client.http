@@ -1,0 +1,9 @@
+GET http://localhost:8080/shop-1.0-SNAPSHOT/exchange-rates?value=100%20PLN
+Accept: application/json
+
+###
+
+POST http://localhost:8080/shop-1.0-SNAPSHOT/messages
+Content-Type: text/plain
+
+Hello JMS
