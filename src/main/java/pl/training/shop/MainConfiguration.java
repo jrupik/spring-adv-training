@@ -7,12 +7,13 @@ import org.springframework.remoting.caucho.HessianProxyFactoryBean;
 import org.springframework.remoting.caucho.HessianServiceExporter;
 import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
+import org.springframework.remoting.support.RemoteExporter;
 
 @Configuration
 public class MainConfiguration {
 
     @Bean(name = "/users")
-    public RemoteExporter userService() {
+    public HttpInvokerServiceExporter userService() {
         HttpInvokerServiceExporter exporter = new HttpInvokerServiceExporter();
         exporter.setService(new ArrayListUserService());
         exporter.setServiceInterface(UserService.class);
@@ -20,7 +21,7 @@ public class MainConfiguration {
     }
 
     @Bean
-    public RemoteExporter userServiceRemote() {
+    public HttpInvokerProxyFactoryBean userServiceRemote() {
         HttpInvokerProxyFactoryBean proxyFactoryBean = new HttpInvokerProxyFactoryBean();
         proxyFactoryBean.setServiceInterface(UserService.class);
         proxyFactoryBean.setServiceUrl("http://localhost:8080/users");
