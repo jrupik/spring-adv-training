@@ -32,16 +32,17 @@ public class MailService {
 
     @JmsListener(destination = "MailDS")
     public void onMessage(MailMessage mailMessage) {
+
         mailSender.send(createMimeMessagePreparator(mailMessage));
     }
 
     private MimeMessagePreparator createMimeMessagePreparator(MailMessage mailMessage) {
         return mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "utf-8");
             messageHelper.setFrom(sender);
             messageHelper.setTo(mailMessage.getRecipient());
             messageHelper.setSubject(mailMessage.getSubject());
-            messageHelper.setText(mailMessage.getText());
+            messageHelper.setText(mailMessage.getText(), true);
         };
     }
 
