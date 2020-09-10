@@ -8,7 +8,7 @@ import java.util.Random;
 @Stateless
 public class FakeExchangeRate implements ExchangeRate {
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     @Override
     public double get(FastMoney value) {

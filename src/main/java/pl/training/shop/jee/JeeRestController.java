@@ -13,11 +13,10 @@ import javax.naming.NamingException;
 public class JeeRestController {
 
     private final JmsSender jmsSender;
-    private final JndiTemplate jndiTemplate = new JndiTemplate();
+    private final ExchangeRate exchangeRate;
 
     @GetMapping("exchange-rates")
     public double getExchangeRate(@RequestParam String value) throws NamingException {
-        var exchangeRate = jndiTemplate.lookup("java:global/shop-1.0-SNAPSHOT/FakeExchangeRate", ExchangeRate.class);
         return exchangeRate.get(FastMoney.parse(value));
     }
 
