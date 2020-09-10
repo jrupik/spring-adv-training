@@ -12,7 +12,7 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 import javax.naming.NamingException;
 
-@EnableJms
+//@EnableJms
 @Configuration
 public class JeeConfiguration {
 
@@ -26,11 +26,11 @@ public class JeeConfiguration {
         return new JndiTemplate().lookup("java:/ConnectionFactory", ConnectionFactory.class);
     }
 
-    @Bean
+    /*@Bean
     public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
         var cachingConnectionFactory = new CachingConnectionFactory(connectionFactory);
         return new JmsTemplate(cachingConnectionFactory);
-    }
+    }*/
 
     @Bean
     public Queue messagingQueue() throws NamingException {
@@ -42,13 +42,13 @@ public class JeeConfiguration {
         return new JmsSender(jmsTemplate, messagingQueue);
     }
 
-    @Bean
+    /*@Bean
     public DefaultJmsListenerContainerFactory defaultJmsListenerContainerFactory(ConnectionFactory connectionFactory) {
         var defaultJmsListenerContainerFactory = new DefaultJmsListenerContainerFactory();
         defaultJmsListenerContainerFactory.setConnectionFactory(connectionFactory);
         defaultJmsListenerContainerFactory.setConcurrency("5-10");
         return defaultJmsListenerContainerFactory;
-    }
+    }*/
 
     @Bean
     public MessageService messageService() {
