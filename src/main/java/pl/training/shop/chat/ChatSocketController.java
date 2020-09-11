@@ -18,11 +18,10 @@ public class ChatSocketController {
     private final SimpMessagingTemplate messagingTemplate;
 
     @MessageMapping("/chat")
-   // @SendTo("/user/{username}/queue/position-updates")
-    public void send(Message message, @Header("simp"p)) {
+    @SendTo("/chat-topic/messages")
+    public Message send(Message message) {
         log.log(Level.INFO, "New message:" + message);
-        //return message;
-        messagingTemplate.convertAndSendToUser("user1", "/queue/messages", message);
+        return message;
     }
 
 }

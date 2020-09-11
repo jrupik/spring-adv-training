@@ -20,7 +20,7 @@ $(() => {
         stompClient = Stomp.over(socket);
         stompClient.connect({}, () => {
             updateConnectionStatus(true);
-            stompClient.subscribe('/user/queue/messages', onMessage)
+            stompClient.subscribe('/chat-topic/messages', onMessage)
         });
     }
 
