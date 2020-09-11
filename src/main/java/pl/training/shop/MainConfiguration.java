@@ -12,20 +12,36 @@ import org.springframework.remoting.support.RemoteExporter;
 @Configuration
 public class MainConfiguration {
 
-    @Bean(name = "/users")
+    /*@Bean(name = "/users")
     public HttpInvokerServiceExporter userService() {
         HttpInvokerServiceExporter exporter = new HttpInvokerServiceExporter();
+        exporter.setService(new ArrayListUserService());
+        exporter.setServiceInterface(UserService.class);
+        return exporter;
+    }*/
+
+    /*@Bean
+    public HttpInvokerProxyFactoryBean userServiceRemote() {
+        HttpInvokerProxyFactoryBean proxyFactoryBean = new HttpInvokerProxyFactoryBean();
+        proxyFactoryBean.setServiceInterface(UserService.class);
+        proxyFactoryBean.setServiceUrl("http://localhost:8080/users");
+        return proxyFactoryBean;
+   }*/
+
+   @Bean(name = "/users")
+    public HessianServiceExporter userService() {
+       HessianServiceExporter exporter = new HessianServiceExporter();
         exporter.setService(new ArrayListUserService());
         exporter.setServiceInterface(UserService.class);
         return exporter;
     }
 
     @Bean
-    public HttpInvokerProxyFactoryBean userServiceRemote() {
-        HttpInvokerProxyFactoryBean proxyFactoryBean = new HttpInvokerProxyFactoryBean();
+    public HessianProxyFactoryBean userServiceRemote() {
+        HessianProxyFactoryBean proxyFactoryBean = new HessianProxyFactoryBean();
         proxyFactoryBean.setServiceInterface(UserService.class);
         proxyFactoryBean.setServiceUrl("http://localhost:8080/users");
         return proxyFactoryBean;
-   }
+    }
 
 }
