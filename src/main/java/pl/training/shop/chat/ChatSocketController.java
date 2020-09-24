@@ -24,22 +24,22 @@ public class ChatSocketController  implements ApplicationListener<SessionConnect
     private final SimpMessagingTemplate messagingTemplate;
     private final Map<String, String> sockets = new HashMap<>();
 
-    @MessageMapping("/chat")
-    public void sendSpecific(@Payload Message message, Principal user, @Header("simpSessionId") String sessionId) {
-        sockets.put(message.getSender(), sessionId);
-        messagingTemplate.convertAndSend("/queue/specific-user-user" + sockets.get(message.getRecipient()), message);
-    }
+//    @MessageMapping("/chat")
+//    public void sendSpecific(@Payload Message message, Principal user, @Header("simpSessionId") String sessionId) {
+//        sockets.put(message.getSender(), sessionId);
+//        messagingTemplate.convertAndSend("/queue/specific-user-user" + sockets.get(message.getRecipient()), message);
+//    }
 
     @Override
     public void onApplicationEvent(SessionConnectedEvent sessionConnectedEvent) {
         log.info(sessionConnectedEvent.toString());
     }
 
-    /*@MessageMapping("/chat")
+    @MessageMapping("/chat")
     @SendTo("/chat-topic/messages")
     public Message send(Message message) {
         log.log(Level.INFO, "New message:" + message);
         return message;
-    }*/
+    }
 
 }
